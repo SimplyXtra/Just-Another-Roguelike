@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://dungeontileset-extended.png" type="Texture" id=1]
+[ext_resource path="res://Tools/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Animations/lunge.tres" type="Animation" id=3]
+[ext_resource path="res://Animations/heavySwipe.tres" type="Animation" id=4]
+[ext_resource path="res://Animations/lightSwipe.tres" type="Animation" id=5]
+
+[sub_resource type="Animation" id=30]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[node name="Spear" type="Node2D"]
+z_index = 10
+script = ExtResource( 2 )
+damage = 16
+knockbackForce = 200.0
+animation = "lunge"
+
+[node name="Sprite" type="Sprite" parent="."]
+z_index = 5
+texture = ExtResource( 1 )
+offset = Vector2( 0, -20 )
+region_enabled = true
+region_rect = Rect2( 288, 176, 16, 32 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 30 )
+anims/heavySwipe = ExtResource( 4 )
+anims/lightSwipe = ExtResource( 5 )
+anims/lunge = ExtResource( 3 )
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hurtbox"]
+position = Vector2( 0, 5.96046e-08 )
+scale = Vector2( 1.33149, 1.33149 )
+polygon = PoolVector2Array( -11.2656, -5.25727, 33.7967, -3.75519, 39.054, -4.47654e-08, 33.7967, 3.75519, -11.2656, 5.25727 )
+
+[node name="hurtboxEnemy" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hurtboxEnemy"]
+scale = Vector2( 1.1795, 1.1795 )
+polygon = PoolVector2Array( -10.1738, -2.54345, 33.0648, -2.54345, 38.1517, 0, 33.0648, 2.54345, -10.1738, 2.54345 )
