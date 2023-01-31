@@ -5,7 +5,8 @@ onready var sfxPlayer := $SFXPlayer
 var soundtrack = {
 	"Intro" : preload("res://Music/Just Another Title Song.mp3"),
 	"Bridge" : preload("res://Music/Just Another Bridge.mp3"),
-	"Game" : preload("res://Music/Just Another Song.mp3")
+	"Game" : preload("res://Music/Just Another Song.mp3"),
+	"Death": preload("res://Music/Temp Death Song.mp3")
 }
 var playing = "Intro"
 
@@ -34,6 +35,7 @@ func _on_MusicPlayer_finished() -> void:
 
 func playerDamaged(_damage:int) -> void:
 	if stats.playerHealth <= 0:
+		AudioServer.set_bus_mute(1, true)
 		animationPlayer.play("deathScreen")
 
 func pause() -> void:
@@ -68,4 +70,7 @@ func loadScene(path:String) -> void:
 
 func loadDeathScene() -> void:
 	stats.playerHealth = 1
+	AudioServer.set_bus_mute(1, false)
+	updateSong("Death")
 	loadScene(stats.deathScene)
+

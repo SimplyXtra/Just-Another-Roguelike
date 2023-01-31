@@ -25,3 +25,7 @@ func changeSong(songName:String) -> void:
 func changeHealth(damage:int) -> void:
 	playerHealth -= damage
 	emit_signal("changeHealth", damage)
+
+func loadStartMenu() -> void:
+	changeScene(menu)
+	changeSong("Intro")

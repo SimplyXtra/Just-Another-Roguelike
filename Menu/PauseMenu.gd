@@ -17,8 +17,7 @@ func _on_OptionsButton_pressed() -> void:
 
 func _on_RestartButton_pressed() -> void:
 	emit_signal("pauseGame")
-	stats.changeScene(stats.menu)
-	stats.changeSong("Intro")
+	stats.loadStartMenu()
 
 
 func _on_QuitButton_pressed() -> void:

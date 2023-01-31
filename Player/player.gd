@@ -160,7 +160,5 @@ func displayHealth() -> void:
 		UIanimationPlayer.play("Fade Health Bar")
 
 func die() -> void:
-	stats.changeScene(stats.levels[stats.levels.size() - 1])
-	stats.level = 0
 	queue_free()
 
