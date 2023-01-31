@@ -28,7 +28,7 @@ onready var sprite := $AnimatedSprite
 onready var cosmeticWeapon := $WeaponSprite
 onready var stateAnimationPlayer := $StateAnimPlayer
 onready var movementAnimationPlayer := $MoveAnimPlayer
-onready var label := $Label
+onready var healthBar := $HealthBar
 var weapon
 
 #Signals
@@ -36,7 +36,8 @@ signal attack(knockbackDirection)
 
 #General
 func _ready() -> void:
-	label.text = String(health)
+	healthBar.max_value = health
+	healthBar.visible = false
 	loadWeapon()
 	
 	var detectionArea = $DetectionArea
@@ -149,7 +150,8 @@ func attackEnded() -> void:
 func takeDamage(damage:int, knockback:Vector2) -> void:
 	health -= damage
 	velocity += knockback / knockbackResistance
-	label.text = String(health)
+	healthBar.value = health
+	healthBar.visible = true
 	stateAnimationPlayer.play("enemyHurt")
 
 func die() -> void:

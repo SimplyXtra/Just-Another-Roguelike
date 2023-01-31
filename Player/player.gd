@@ -13,13 +13,15 @@ var inputDirection := Vector2.ZERO
 var velocity := Vector2.ZERO
 var isHoldingWeapon := false
 var isJustHurt := false
+var isHealthLow := false
 
 #Nodes
 onready var sprite := $AnimatedSprite
 onready var animationPlayer := $AnimationPlayer
+onready var UIanimationPlayer := $UIAnimationPlayer
 onready var cosmeticWeapon := $WeaponSprite
 onready var audioPlayer := $AudioStreamPlayer2D
-onready var label := $Label
+onready var healthBar := $HealthBar
 var weapon
 
 #Signals
@@ -28,7 +30,9 @@ signal attack(knockbackDirection)
 #Main
 func _ready() -> void:
 	loadWeapon()
-	label.text = String(stats.playerHealth)
+	healthBar.max_value = stats.PLAYER_MAX_HEALTH
+	healthBar.value = stats.playerHealth
+	displayHealth()
 	
 func _physics_process(delta: float) -> void:
 	animate()
@@ -138,15 +142,25 @@ func attackEnded() -> void:
 
 #Get Attacked
 func takeDamage(damage:int, knockback:Vector2) -> void:
-	stats.playerHealth -= damage
-	label.text = String(stats.playerHealth)
+	stats.changeHealth(damage)
+	healthBar.value = stats.playerHealth
+	healthBar.visible = true
 	velocity += knockback / KNOCKBACK_RESISTANCE
 	isJustHurt = true
+	displayHealth()
 	audioPlayer.play()
 
+func displayHealth() -> void:
+	if stats.PLAYER_MAX_HEALTH / stats.playerHealth >= 2:
+		isHealthLow = true
+		healthBar.visible = true
+	if isHealthLow:
+		UIanimationPlayer.play("Bobble Health Bar")
+	else:
+		UIanimationPlayer.play("Fade Health Bar")
+
 func die() -> void:
-	if get_tree().change_scene(stats.levels[stats.levels.size() - 1]):
-		print("MenuChangeSceneError")
+	stats.changeScene(stats.levels[stats.levels.size() - 1])
 	stats.level = 0
 	queue_free()
 

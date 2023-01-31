@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Just Another Title Song.mp3-4b5b0876ef4eb32c2e83be74
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

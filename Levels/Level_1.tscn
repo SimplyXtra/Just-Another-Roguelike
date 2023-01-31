@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Stairsdown.tscn" type="PackedScene" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://Enemies/skeleton.gd" type="Script" id=5]
 [ext_resource path="res://Tools/Spear.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Hitbox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Menu/progressBarBack.png" type="Texture" id=8]
+[ext_resource path="res://Menu/progressBarFront.png" type="Texture" id=9]
+[ext_resource path="res://Menu/progressBarFill.png" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=10]
 radius = 6.0
@@ -312,12 +315,16 @@ collision_mask = 15
 script = ExtResource( 5 )
 WEAPON = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="YSort/Skeleton"]
-margin_left = -20.0
-margin_top = -17.0
-margin_right = 20.0
-margin_bottom = -3.0
-align = 1
+[node name="HealthBar" type="TextureProgress" parent="YSort/Skeleton"]
+show_behind_parent = true
+margin_left = -12.0
+margin_top = -11.0
+margin_right = 12.0
+margin_bottom = -6.0
+value = 50.0
+texture_under = ExtResource( 8 )
+texture_over = ExtResource( 9 )
+texture_progress = ExtResource( 10 )
 
 [node name="Collision" type="CollisionShape2D" parent="YSort/Skeleton"]
 position = Vector2( 0, 8 )

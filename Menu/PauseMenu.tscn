@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Menu/Titles/titleResume.png" type="Texture" id=1]
+[ext_resource path="res://Menu/Titles/titleRestart.png" type="Texture" id=2]
+[ext_resource path="res://Menu/Titles/titleQuit.png" type="Texture" id=3]
+[ext_resource path="res://Menu/Titles/titleOptions.png" type="Texture" id=4]
+[ext_resource path="res://Menu/PauseMenu.gd" type="Script" id=5]
+[ext_resource path="res://Menu/Titles/titleResumeHover.png" type="Texture" id=6]
+[ext_resource path="res://Menu/Titles/titleQuitHover.png" type="Texture" id=7]
+[ext_resource path="res://Menu/Titles/titleOptionsHover.png" type="Texture" id=8]
+[ext_resource path="res://Menu/Titles/titleRestartHover.png" type="Texture" id=9]
+[ext_resource path="res://Menu/Titles/titleFocus.png" type="Texture" id=10]
+[ext_resource path="res://Menu/OptionsMenu.tscn" type="PackedScene" id=14]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.133333, 0.133333, 0.133333, 0.12549 )
+
+[node name="PauseMenu" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 5 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 700.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 420.0
+margin_bottom = 680.0
+size_flags_horizontal = 0
+
+[node name="ResumeButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 420.0
+margin_bottom = 63.0
+focus_neighbour_top = NodePath("../QuitButton")
+size_flags_vertical = 0
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 6 )
+texture_focused = ExtResource( 10 )
+
+[node name="OptionsButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 67.0
+margin_right = 420.0
+margin_bottom = 130.0
+size_flags_vertical = 0
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 8 )
+texture_focused = ExtResource( 10 )
+
+[node name="RestartButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 134.0
+margin_right = 420.0
+margin_bottom = 197.0
+size_flags_vertical = 0
+texture_normal = ExtResource( 2 )
+texture_hover = ExtResource( 9 )
+texture_focused = ExtResource( 10 )
+
+[node name="QuitButton" type="TextureButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 201.0
+margin_right = 420.0
+margin_bottom = 264.0
+focus_neighbour_bottom = NodePath("../ResumeButton")
+size_flags_vertical = 0
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 7 )
+texture_focused = ExtResource( 10 )
+
+[node name="OptionsMenu" parent="MarginContainer/HBoxContainer" instance=ExtResource( 14 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 424.0
+margin_right = 1240.0
+margin_bottom = 680.0
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

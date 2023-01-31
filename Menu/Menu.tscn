@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://Helvetica-Font/Helvetiva.tres" type="Theme" id=1]
+[ext_resource path="res://Menu/UI_Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Menu/quitButtonPressed.png" type="Texture" id=2]
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=3]
 [ext_resource path="res://Enemies/skeleton.tscn" type="PackedScene" id=4]
@@ -15,96 +15,129 @@
 [ext_resource path="res://Menu/startButtonPressed.png" type="Texture" id=13]
 [ext_resource path="res://Tools/Sword.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Tools/Club.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Menu/Titles/Title.png" type="Texture" id=16]
+[ext_resource path="res://Menu/OptionsMenu.tscn" type="PackedScene" id=17]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
 
 [node name="Menu" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
 script = ExtResource( 3 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 1273.0
-margin_bottom = 713.0
+margin_right = 1280.0
+margin_bottom = 720.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 1266.0
-margin_bottom = 706.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1260.0
+margin_bottom = 700.0
 
 [node name="Buffer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-margin_right = 1266.0
-margin_bottom = 398.0
+margin_right = 1240.0
+margin_bottom = 344.0
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Buffer"]
+margin_right = 1240.0
+margin_bottom = 344.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="OptionsMenu" parent="MarginContainer/VBoxContainer/Buffer/MarginContainer" instance=ExtResource( 17 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1220.0
+margin_bottom = 324.0
+size_flags_vertical = 3
+
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 402.0
-margin_right = 1266.0
+margin_top = 348.0
+margin_right = 1240.0
 margin_bottom = 503.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.45
 theme = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer"]
-margin_right = 1266.0
-margin_bottom = 101.0
-theme = ExtResource( 1 )
-text = "Just Another Roguelike"
-align = 1
-valign = 1
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/PanelContainer"]
+margin_right = 1240.0
+margin_bottom = 155.0
+texture = ExtResource( 16 )
+stretch_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 507.0
-margin_right = 1266.0
-margin_bottom = 706.0
+margin_right = 1240.0
+margin_bottom = 680.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 
 [node name="Buffer 1" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 178.0
-margin_bottom = 199.0
+margin_right = 174.0
+margin_bottom = 173.0
 size_flags_horizontal = 3
 
 [node name="OptionsButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 182.0
-margin_right = 361.0
-margin_bottom = 199.0
+margin_left = 178.0
+margin_right = 353.0
+margin_bottom = 173.0
+focus_neighbour_left = NodePath("../QuitButton")
 size_flags_horizontal = 3
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 12 )
 texture_hover = ExtResource( 10 )
+texture_focused = ExtResource( 10 )
 expand = true
 stretch_mode = 5
 
 [node name="StartButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 365.0
-margin_right = 900.0
-margin_bottom = 199.0
+margin_left = 357.0
+margin_right = 882.0
+margin_bottom = 173.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 13 )
 texture_hover = ExtResource( 11 )
+texture_focused = ExtResource( 11 )
 expand = true
 stretch_mode = 5
 
 [node name="QuitButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 904.0
-margin_right = 1083.0
-margin_bottom = 199.0
+margin_left = 886.0
+margin_right = 1061.0
+margin_bottom = 173.0
+focus_neighbour_right = NodePath("../OptionsButton")
 size_flags_horizontal = 3
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 2 )
 texture_hover = ExtResource( 8 )
+texture_focused = ExtResource( 8 )
 expand = true
 stretch_mode = 5
 
 [node name="Buffer 2" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 1087.0
-margin_right = 1266.0
-margin_bottom = 199.0
+margin_left = 1065.0
+margin_right = 1240.0
+margin_bottom = 173.0
 size_flags_horizontal = 3
 
 [node name="NPCBoxes" type="Node2D" parent="."]
-position = Vector2( 448, 0 )
+position = Vector2( 448, 40 )
 scale = Vector2( 3, 3 )
 
 [node name="World1" type="Node2D" parent="NPCBoxes"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Just Another Bridge.mp3-9e6af450d289f7ad0bd2eb3244a0845a.mp3str"
+
+[deps]
+
+source_file="res://Music/Just Another Bridge.mp3"
+dest_files=[ "res://.import/Just Another Bridge.mp3-9e6af450d289f7ad0bd2eb3244a0845a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
