@@ -44,12 +44,12 @@ zoom = Vector2( 0.3, 0.3 )
 smoothing_enabled = true
 smoothing_speed = 6.0
 
-[node name="ColorRect" type="ColorRect" parent="Player/Camera2D"]
+[node name="RedOverlay" type="ColorRect" parent="Player/Camera2D"]
 margin_left = -204.0
 margin_top = -123.0
 margin_right = 212.0
 margin_bottom = 117.0
-color = Color( 0.290196, 0, 0, 0.211765 )
+color = Color( 0.290196, 0, 0, 0.458824 )
 
 [node name="StairsUp" type="Area2D" parent="."]
 position = Vector2( 280.311, -322.275 )

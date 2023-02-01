@@ -28,7 +28,6 @@ func _ready() -> void:
 	loadScene("Menu/Menu.tscn")
 
 func _on_MusicPlayer_finished() -> void:
-	print(playing)
 	if playing == "Bridge":
 		updateSong("Game")
 	musicPlayer.play(0)
