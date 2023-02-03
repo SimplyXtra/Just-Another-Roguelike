@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Menu/PauseMenu.tscn" type="PackedScene" id=1]
 [ext_resource path="res://MainScene.gd" type="Script" id=2]
 [ext_resource path="res://Music/Just Another Title Song.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Sound-Effects/Button.ogg" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -30,9 +31,21 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("GUI/BlackScreen:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
 
 [sub_resource type="Animation" id=2]
-resource_name = "deathScreen"
+resource_name = "transitionToDeath"
 length = 6.0
 step = 0.5
 tracks/0/type = "value"
@@ -74,6 +87,49 @@ tracks/2/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=3]
+resource_name = "transitionToMenu"
+length = 6.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("GUI/BlackScreen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("GUI/BlackScreen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.5, 4.5, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "loadMenu"
+} ]
+}
+
 [node name="MainScene" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -84,6 +140,8 @@ stream = ExtResource( 3 )
 bus = "Music"
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 4 )
 bus = "SFX"
 
 [node name="GUI" type="CanvasLayer" parent="."]
@@ -96,11 +154,13 @@ visible = false
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
 anims/RESET = SubResource( 1 )
-anims/deathScreen = SubResource( 2 )
+anims/transitionToDeath = SubResource( 2 )
+anims/transitionToMenu = SubResource( 3 )
 
 [connection signal="finished" from="MusicPlayer" to="." method="_on_MusicPlayer_finished"]

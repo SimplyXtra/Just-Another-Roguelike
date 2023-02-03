@@ -15,12 +15,14 @@ var isHoldingWeapon := false
 var isJustHurt := false
 var isHealthLow := false
 
+var hurtSfx = preload("res://Sound-Effects/Hurt.wav")
+
 #Nodes
 onready var sprite := $AnimatedSprite
 onready var animationPlayer := $AnimationPlayer
 onready var UIanimationPlayer := $UIAnimationPlayer
 onready var cosmeticWeapon := $WeaponSprite
-onready var audioPlayer := $AudioStreamPlayer2D
+onready var sfxPlayer := $AudioStreamPlayer
 onready var healthBar := $HealthBar
 var weapon
 
@@ -135,7 +137,6 @@ func attackPrep(attack := false) -> void:
 		emit_signal("attack", knockbackDirection)
 
 func attackEnded() -> void:
-	audioPlayer.play()
 	weapon.sprite.visible = false
 	cosmeticWeapon.visible = true
 	isHoldingWeapon = true
@@ -148,10 +149,11 @@ func takeDamage(damage:int, knockback:Vector2) -> void:
 	velocity += knockback / KNOCKBACK_RESISTANCE
 	isJustHurt = true
 	displayHealth()
-	audioPlayer.play()
+	sfxPlayer.stream = hurtSfx
+	sfxPlayer.play()
 
 func displayHealth() -> void:
-	if stats.PLAYER_MAX_HEALTH / stats.playerHealth >= 2:
+	if stats.PLAYER_MAX_HEALTH / 2 >= stats.playerHealth:
 		isHealthLow = true
 		healthBar.visible = true
 	if isHealthLow:
@@ -160,5 +162,6 @@ func displayHealth() -> void:
 		UIanimationPlayer.play("Fade Health Bar")
 
 func die() -> void:
+	stats.changeSFX("PlayerDeath")
 	queue_free()
 

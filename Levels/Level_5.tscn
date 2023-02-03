@@ -35,6 +35,7 @@ position = Vector2( 256, 80 )
 
 [node name="Skeleton" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 184, 176 )
+attackAreaScale = 1.2
 
 [node name="Goblin" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 256, 120 )
@@ -45,6 +46,8 @@ health = 240
 
 [node name="Skeleton2" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 232, 192 )
+attackAreaScale = 1.2
 
 [node name="Skeleton3" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 304, 168 )
+attackAreaScale = 1.2

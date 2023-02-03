@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/LightButton.ogg-2af3c46a3624cb395177c8696abc3644.oggstr"
+
+[deps]
+
+source_file="res://Sound-Effects/LightButton.ogg"
+dest_files=[ "res://.import/LightButton.ogg-2af3c46a3624cb395177c8696abc3644.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

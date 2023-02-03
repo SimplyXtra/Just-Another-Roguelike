@@ -34,22 +34,24 @@ position = Vector2( 360, 88 )
 [node name="Player" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 120, 176 )
 
-[node name="Goblin" parent="." instance=ExtResource( 5 )]
+[node name="Goblin" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 192, 152 )
 
-[node name="Goblin2" parent="." instance=ExtResource( 5 )]
+[node name="Goblin2" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 192, 216 )
 
-[node name="Skeleton" parent="." instance=ExtResource( 4 )]
+[node name="Skeleton" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 392, 80 )
 WEAPON = ExtResource( 6 )
 
-[node name="Skeleton2" parent="." instance=ExtResource( 4 )]
+[node name="Skeleton2" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 320, 88 )
 WEAPON = ExtResource( 6 )
 
-[node name="Skeleton3" parent="." instance=ExtResource( 4 )]
+[node name="Skeleton3" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 288, 200 )
+attackAreaScale = 1.2
 
-[node name="Skeleton4" parent="." instance=ExtResource( 4 )]
+[node name="Skeleton4" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 280, 168 )
+attackAreaScale = 1.2
