@@ -157,6 +157,8 @@ tracks/1/keys = {
 collision_layer = 4
 collision_mask = 15
 script = ExtResource( 2 )
+knockbackResistance = 1.2
+health = 60
 WEAPON = ExtResource( 14 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -205,7 +207,6 @@ collision_layer = 4
 shape = SubResource( 24 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -1, 1 )
 z_index = 10
 frames = SubResource( 9 )
 animation = "Idle"
@@ -213,8 +214,6 @@ animation = "Idle"
 [node name="WeaponSprite" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="WeaponSprite"]
-position = Vector2( -3.02703, 6.12975 )
-rotation = -2.4103
 region_enabled = true
 region_rect = Rect2( 304, 80, 16, 32 )
 

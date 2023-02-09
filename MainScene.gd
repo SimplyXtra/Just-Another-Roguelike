@@ -12,7 +12,10 @@ var sfx = {
 	"Button" : preload("res://Sound-Effects/Button.ogg"),
 	"SliderHandle" : preload("res://Sound-Effects/Slider.ogg"),
 	"LightButton" : preload("res://Sound-Effects/LightButton.ogg"),
-	"PlayerDeath" : preload("res://Sound-Effects/Death.wav")
+	"PlayerDeath" : preload("res://Sound-Effects/Death.wav"),
+	"PlayerHeal" : preload("res://Sound-Effects/Heal.mp3"),
+	"ChangeLevel" : preload("res://Sound-Effects/Walk.wav"),
+	"OpenStaircase" : preload("res://Sound-Effects/Break Vent.wav")
 }
 var playing = "Intro"
 
@@ -68,16 +71,19 @@ func playSFX(sfxName:String) -> void:
 		sfxPlayer.stream = sfx[sfxName]
 		sfxPlayer.play(0)
 
-func loadScene(path:String) -> void:
+func loadScene(path:String, isOnlyString := true, resource = null) -> void:
 	if path != loadedScenePath:
-		if not loadedScenePath:
+		if isOnlyString:
+			if loadedScenePath:
+				call_deferred("remove_child", loadedScene)
 			loadedScenePath = path
 			loadedScene = load(path).instance()
-			add_child(loadedScene)
+			call_deferred("add_child", loadedScene)
 		else:
-			call_deferred("remove_child", loadedScene)
+			if loadedScenePath:
+				call_deferred("remove_child", loadedScene)
 			loadedScenePath = path
-			loadedScene = load(path).instance()
+			loadedScene = resource.instance()
 			call_deferred("add_child", loadedScene)
 		#GUI.visible = "Levels" in path
 

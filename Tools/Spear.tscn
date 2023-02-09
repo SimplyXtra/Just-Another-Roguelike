@@ -48,8 +48,9 @@ tracks/2/keys = {
 [node name="Spear" type="Node2D"]
 z_index = 10
 script = ExtResource( 2 )
-damage = 16
-knockbackForce = 200.0
+damage = 18
+knockbackForce = 180.0
+atttackAreaSizeMultiplier = 1.2
 animation = "lunge"
 
 [node name="Sprite" type="Sprite" parent="."]

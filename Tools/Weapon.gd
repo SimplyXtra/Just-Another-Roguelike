@@ -3,7 +3,8 @@ extends Node2D
 #Constants
 export(int) var damage := 10
 export(float) var knockbackForce := 100.0
-export(String, "lightSwipe", "heavySwipe", "lunge") var animation := "lightSwipe"
+export(float, 0.1, 2) var atttackAreaSizeMultiplier := 1.0
+export(String, "lightSwipe", "heavySwipe", "lunge", "veryHeavySwipe", "veryLightSwipe") var animation := "lightSwipe"
 
 #Globals
 var knockback := Vector2.ZERO

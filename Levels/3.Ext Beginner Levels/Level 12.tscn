@@ -7,7 +7,7 @@
 [ext_resource path="res://Enemies/goblin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Tools/Sword.tscn" type="PackedScene" id=6]
 
-[node name="Level_4" type="Node2D"]
+[node name="Level 12" type="Node2D"]
 
 [node name="Floor" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -35,23 +35,21 @@ position = Vector2( 360, 88 )
 position = Vector2( 120, 176 )
 
 [node name="Goblin" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 192, 152 )
+position = Vector2( 200, 152 )
 
 [node name="Goblin2" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 192, 216 )
+position = Vector2( 216, 192 )
 
 [node name="Skeleton" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 392, 80 )
+position = Vector2( 312, 88 )
 WEAPON = ExtResource( 6 )
 
 [node name="Skeleton2" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 320, 88 )
+position = Vector2( 392, 128 )
 WEAPON = ExtResource( 6 )
 
 [node name="Skeleton3" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 288, 200 )
-attackAreaScale = 1.2
+position = Vector2( 264, 184 )
 
 [node name="Skeleton4" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 280, 168 )
-attackAreaScale = 1.2
+position = Vector2( 248, 144 )

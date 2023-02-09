@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://dungeontileset-extended.png" type="Texture" id=1]
+[ext_resource path="res://Tools/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://Animations/lightSwipe.tres" type="Animation" id=3]
+[ext_resource path="res://Animations/lunge.tres" type="Animation" id=4]
+[ext_resource path="res://Animations/heavySwipe.tres" type="Animation" id=5]
+
+[sub_resource type="Animation" id=30]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "veryHeavySwipe"
+length = 1.1875
+step = 0.0625
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.9375, 1, 1.0625, 1.125 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -11.0, 22.2, -30.0, -32.0, 111.1, 162.2 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.0625, 1.1875 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "dealDamage"
+}, {
+"args": [  ],
+"method": "emitAttackOver"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.0625, 1.125 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 1.2, 1.2 ), Vector2( 1.1, 1.1 ), Vector2( 1.4, 1.4 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[node name="GreatSword" type="Node2D"]
+show_behind_parent = true
+z_index = 10
+script = ExtResource( 2 )
+damage = 70
+knockbackForce = 600.0
+atttackAreaSizeMultiplier = 1.2
+animation = "veryHeavySwipe"
+
+[node name="Sprite" type="Sprite" parent="."]
+z_index = 5
+texture = ExtResource( 1 )
+offset = Vector2( 0, -20 )
+region_enabled = true
+region_rect = Rect2( 320, 80, 16, 32 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 30 )
+anims/heavySwipe = ExtResource( 5 )
+anims/lightSwipe = ExtResource( 3 )
+anims/lunge = ExtResource( 4 )
+anims/veryHeavySwipe = SubResource( 31 )
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hurtbox"]
+position = Vector2( 2.98023e-08, -1.19209e-07 )
+scale = Vector2( 1.59049, 1.59049 )
+polygon = PoolVector2Array( 0, -8, 9, -29, 17, -25, 28, -13, 31, 0, 29, 10, 21, 22, 7, 30, 0, 8 )
+
+[node name="hurtboxEnemy" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hurtboxEnemy"]
+position = Vector2( 1.19209e-07, 0 )
+scale = Vector2( 1.29768, 1.29769 )
+polygon = PoolVector2Array( 0, -8, 9, -29, 17, -25, 28, -13, 31, 0, 29, 10, 21, 22, 7, 30, 0, 8 )

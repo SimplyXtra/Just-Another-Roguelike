@@ -12,8 +12,9 @@ func _on_StartButton_pressed() -> void:
 	stats.changeSFX("Button")
 	stats.playerHealth = stats.PLAYER_MAX_HEALTH
 	stats.level = 0
+	stats.loadLevels()
 	stats.changeSong("Bridge")
-	stats.changeScene(stats.levels[stats.level])
+	stats.changeScene(stats.levelsPath[stats.level], false, stats.levels[stats.level])
 
 func _on_QuitButton_pressed() -> void:
 	stats.changeSFX("Button")

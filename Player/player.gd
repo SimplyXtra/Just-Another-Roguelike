@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
 #Constants
-export var SPEED := 120
+export var SPEED := 130
 export var ACCELERATION_MULTIPLIER := 4.0
 export var FRICTION_MULTIPLIER := 8.0
 export var KNOCKBACK_RESISTANCE := 1.2
+export var DASH_SPEED := 300
 export(Resource) var WEAPON
 
 #Globals
@@ -14,16 +15,20 @@ var velocity := Vector2.ZERO
 var isHoldingWeapon := false
 var isJustHurt := false
 var isHealthLow := false
+var isAbleToDash := true
 
 var hurtSfx = preload("res://Sound-Effects/Hurt.wav")
+var dummy = preload("res://Player/playerDummy.tscn")
 
 #Nodes
 onready var sprite := $AnimatedSprite
-onready var animationPlayer := $AnimationPlayer
+onready var movementAnimationPlayer := $AnimationPlayer
 onready var UIanimationPlayer := $UIAnimationPlayer
+onready var stateAnimationPlayer := $StateAnimationPlayer
 onready var cosmeticWeapon := $WeaponSprite
 onready var sfxPlayer := $AudioStreamPlayer
 onready var healthBar := $HealthBar
+onready var timer := $Timer
 var weapon
 
 #Signals
@@ -60,6 +65,7 @@ func move(delta: float) -> void:
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION_MULTIPLIER * SPEED * delta)
 
+	healthBar.value = stats.playerHealth
 	velocity = move_and_slide(velocity)
 
 func getInput() -> void:
@@ -76,6 +82,28 @@ func getInput() -> void:
 		attackPrep(true)
 	else:
 		attackPrep()
+	
+	if isAbleToDash and Input.is_action_just_pressed("dash"):
+		dash()
+
+func dash() -> void:
+	velocity = DASH_SPEED * inputDirection
+	
+	instanceClone()
+	
+	isAbleToDash = false
+	timer.start()
+
+func dashCooldownEnd() -> void:
+	isAbleToDash = true
+
+func instanceClone() -> void:
+	var afterImage = dummy.instance()
+	get_parent().get_parent().add_child(afterImage)
+	afterImage.global_position = global_position
+	afterImage.animation = sprite.animation
+	afterImage.frame = sprite.frame
+	afterImage.flip_h = sprite.flip_h
 
 #Animate
 func animate() -> void:
@@ -84,24 +112,25 @@ func animate() -> void:
 	cosmeticWeapon.scale.x = flipHInt(not isFacingRight)
 	
 	if isJustHurt: 
+		stateAnimationPlayer.play("hurt")
+	if not isAbleToDash:
 		if isHoldingWeapon: 
-			animationPlayer.play("weaponHurt")
+			movementAnimationPlayer.play("weaponDash")
 		else:
-			animationPlayer.play("basicHurt")
+			movementAnimationPlayer.play("basicDash")
 	elif velocity != Vector2.ZERO:
 		if isHoldingWeapon: 
-			animationPlayer.play("weaponWalk")
+			movementAnimationPlayer.play("weaponWalk")
 		else:
-			animationPlayer.play("basicWalk")
+			movementAnimationPlayer.play("basicWalk")
 	else:
 		if isHoldingWeapon: 
-			animationPlayer.play("weaponIdle")
+			movementAnimationPlayer.play("weaponIdle")
 		else:
-			animationPlayer.play("basicIdle")
+			movementAnimationPlayer.play("basicIdle")
 
-func animationEnded(animationName:String) -> void:
-	if animationName == "basicHurt" or animationName == "weaponHurt":
-		isJustHurt = false
+func animationFinished(_animationName:String) -> void:
+	isJustHurt = false
 
 func flipHInt(x:bool) -> int:
 	if x: return -1
@@ -144,7 +173,6 @@ func attackEnded() -> void:
 #Get Attacked
 func takeDamage(damage:int, knockback:Vector2) -> void:
 	stats.changeHealth(damage)
-	healthBar.value = stats.playerHealth
 	healthBar.visible = true
 	velocity += knockback / KNOCKBACK_RESISTANCE
 	isJustHurt = true

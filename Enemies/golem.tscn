@@ -1,0 +1,241 @@
+[gd_scene load_steps=38 format=2]
+
+[ext_resource path="res://dungeontileset-extended.png" type="Texture" id=1]
+[ext_resource path="res://Enemies/enemy.gd" type="Script" id=2]
+[ext_resource path="res://Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Animations/basicWalk.tres" type="Animation" id=4]
+[ext_resource path="res://Animations/basicIdle.tres" type="Animation" id=5]
+[ext_resource path="res://Menu/progressBarBack.png" type="Texture" id=6]
+[ext_resource path="res://Animations/weaponWalk.tres" type="Animation" id=7]
+[ext_resource path="res://Menu/progressBarFront.png" type="Texture" id=8]
+[ext_resource path="res://Animations/weaponIdle.tres" type="Animation" id=9]
+[ext_resource path="res://Animations/enemyHurt.tres" type="Animation" id=10]
+[ext_resource path="res://Animations/Death.tres" type="Animation" id=11]
+[ext_resource path="res://Menu/progressBarFill.png" type="Texture" id=12]
+[ext_resource path="res://Animations/Death.png" type="Texture" id=13]
+[ext_resource path="res://Tools/GreatSword.tscn" type="PackedScene" id=14]
+
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 9.61409
+height = 6.04891
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 84.9065
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 30.9181
+
+[sub_resource type="CapsuleShape2D" id=24]
+radius = 12.2389
+height = 7.83379
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 13 )
+region = Rect2( 35, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 13 )
+region = Rect2( 70, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 13 )
+region = Rect2( 140, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 13 )
+region = Rect2( 105, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 13 )
+region = Rect2( 175, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 13 )
+region = Rect2( 210, 0, 35, 35 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 1 )
+region = Rect2( 672, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 1 )
+region = Rect2( 704, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 1 )
+region = Rect2( 736, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 1 )
+region = Rect2( 768, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 1 )
+region = Rect2( 800, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 1 )
+region = Rect2( 832, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 1 )
+region = Rect2( 864, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 1 )
+region = Rect2( 896, 0, 32, 48 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
+"loop": true,
+"name": "Death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
+} ]
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "holdingBow"
+step = 0.125
+
+[sub_resource type="Animation" id=25]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:centered")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[node name="Golem" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource( 2 )
+SPEED = 50
+FRICTION_MULTIPLIER = 8.0
+knockbackResistance = 3.0
+health = 400
+WEAPON = ExtResource( 14 )
+dropChance = 3
+dropWeights = [ 1, 2 ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
+[node name="HealthBar" type="TextureProgress" parent="."]
+show_behind_parent = true
+margin_left = -12.0
+margin_top = -11.0
+margin_right = 12.0
+margin_bottom = -6.0
+value = 50.0
+texture_under = ExtResource( 6 )
+texture_over = ExtResource( 8 )
+texture_progress = ExtResource( 12 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 11.2023 )
+shape = SubResource( 10 )
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+modulate = Color( 0.894118, 1, 0, 1 )
+position = Vector2( 0, 8 )
+shape = SubResource( 11 )
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+modulate = Color( 0.929412, 0.396078, 1, 1 )
+position = Vector2( 0, 11.2023 )
+shape = SubResource( 12 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 8 )
+collision_layer = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 0, 3.2023 )
+shape = SubResource( 24 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = 10
+frames = SubResource( 9 )
+animation = "Idle"
+
+[node name="WeaponSprite" type="Node2D" parent="."]
+scale = Vector2( 1.5, 1.5 )
+
+[node name="Sprite" type="Sprite" parent="WeaponSprite"]
+position = Vector2( -3.02703, 6.12975 )
+rotation = -2.4103
+region_enabled = true
+region_rect = Rect2( 304, 80, 16, 32 )
+
+[node name="StateAnimPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 13 )
+anims/enemyHurt = ExtResource( 10 )
+anims/holdingBow = SubResource( 15 )
+
+[node name="MoveAnimPlayer" type="AnimationPlayer" parent="."]
+anims/Death = ExtResource( 11 )
+anims/RESET = SubResource( 25 )
+anims/basicIdle = ExtResource( 5 )
+anims/basicWalk = ExtResource( 4 )
+anims/weaponIdle = ExtResource( 9 )
+anims/weaponWalk = ExtResource( 7 )
+
+[editable path="Hitbox"]

@@ -14,19 +14,30 @@ export var ACCELERATION_MULTIPLIER := 4.0
 export var FRICTION_MULTIPLIER := 4.0
 export var knockbackResistance := 1.0
 export var health := 50
-export var attackAreaScale := 1.0
 export(Resource) var WEAPON
+export var dropChance := 200
+export(Array, Resource) var dropItems := [
+	preload("res://Items/healthDrink.tscn"),
+	preload("res://Items/healthFood.tscn")
+]
+export(Array, int) var dropWeights := [
+	5,
+	10
+]
 
 #Globals
 var velocity := Vector2.ZERO
 var direction = Vector2.ZERO
 var isFacingRight := false
 var isHoldingWeapon := false
+var attackAreaScale := 1.0
 var attacking = false
 var player = null
 
 var hurtSfx = preload("res://Sound-Effects/Hurt.wav")
 var deathSfx = preload("res://Sound-Effects/EnemyDeath.mp3")#Add when death animation is made
+
+var rng = RandomNumberGenerator.new()
 
 #Nodes
 onready var sprite := $AnimatedSprite
@@ -132,6 +143,7 @@ func loadWeapon() -> void:
 		cosmeticWeaponSprite.region_rect = weapon.sprite.region_rect
 		cosmeticWeapon.visible = true
 		isHoldingWeapon = true
+		attackAreaScale = weapon.atttackAreaSizeMultiplier
 
 func attackPrep() -> void:
 	var angleToPlayer = global_position.angle_to_point(player.global_position) - 135
@@ -185,4 +197,17 @@ func prepareDeath() -> void:
 	movementAnimationPlayer.play("Death")
 
 func die() -> void:
+	rng.randomize()
+	var dropItemChance = rng.randi_range(1, dropChance)
+	var totalUsefulWeight = stats.sum(dropWeights)
+	if dropItemChance <= totalUsefulWeight:
+		var marker = 0
+		for i in dropWeights.size():
+			marker += dropWeights[i]
+			if dropItemChance >= totalUsefulWeight - marker:
+				var itemDrop = dropItems[i].instance()
+				itemDrop.global_position = global_position
+				get_parent().get_parent().add_child(itemDrop)
+				break
+			
 	queue_free()

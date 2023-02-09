@@ -36,7 +36,7 @@ tracks/1/keys = {
 [node name="Sword" type="Node2D"]
 z_index = 10
 script = ExtResource( 2 )
-damage = 20
+damage = 28
 knockbackForce = 250.0
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -59,7 +59,7 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hurtbox"]
 position = Vector2( 2.98023e-08, -1.19209e-07 )
-scale = Vector2( 1.03427, 1.03427 )
+scale = Vector2( 1.06619, 1.06619 )
 polygon = PoolVector2Array( 0, -8, 9, -29, 17, -25, 28, -13, 31, 0, 29, 10, 21, 22, 7, 30, 0, 8 )
 
 [node name="hurtboxEnemy" type="Area2D" parent="."]

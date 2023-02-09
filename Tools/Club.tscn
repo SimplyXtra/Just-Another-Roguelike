@@ -36,6 +36,7 @@ tracks/1/keys = {
 [node name="Club" type="Node2D"]
 z_index = 10
 script = ExtResource( 2 )
+damage = 14
 knockbackForce = 400.0
 animation = "heavySwipe"
 

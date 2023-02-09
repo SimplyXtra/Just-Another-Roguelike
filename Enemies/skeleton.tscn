@@ -11,7 +11,7 @@
 
 [sub_resource type="CapsuleShape2D" id=10]
 radius = 6.0
-height = 4.0
+height = 2.0
 
 [sub_resource type="CircleShape2D" id=11]
 radius = 60.0083
@@ -400,7 +400,7 @@ texture_over = ExtResource( 6 )
 texture_progress = ExtResource( 7 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( 0, 9 )
 shape = SubResource( 10 )
 
 [node name="DetectionArea" type="Area2D" parent="."]

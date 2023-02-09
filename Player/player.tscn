@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://dungeontileset-extended.png" type="Texture" id=1]
 [ext_resource path="res://Player/player.gd" type="Script" id=2]
@@ -10,7 +10,7 @@
 
 [sub_resource type="CapsuleShape2D" id=15]
 radius = 6.0
-height = 4.0
+height = 2.0
 
 [sub_resource type="CapsuleShape2D" id=26]
 radius = 5.0
@@ -149,8 +149,8 @@ tracks/4/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=17]
-resource_name = "basicHurt"
+[sub_resource type="Animation" id=30]
+resource_name = "basicDash"
 length = 0.625
 step = 0.125
 tracks/0/type = "value"
@@ -177,17 +177,25 @@ tracks/1/keys = {
 "update": 1,
 "values": [ "Hurt" ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:modulate")
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.375, 0.625 ),
+"times": PoolRealArray( 0, 0.25, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.380392, 0.380392, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ {
+"args": [  ],
+"method": "instanceClone"
+}, {
+"args": [  ],
+"method": "instanceClone"
+}, {
+"args": [  ],
+"method": "instanceClone"
+} ]
 }
 
 [sub_resource type="Animation" id=18]
@@ -248,9 +256,9 @@ tracks/1/keys = {
 "values": [ "Run" ]
 }
 
-[sub_resource type="Animation" id=22]
-resource_name = "weaponHurt"
-length = 0.625
+[sub_resource type="Animation" id=31]
+resource_name = "weaponDash"
+length = 1.125
 step = 0.125
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:frame")
@@ -259,10 +267,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5 ),
+"times": PoolRealArray( 0, 0.125, 0.5, 0.75, 0.875 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4 ]
+"values": [ 4, 3, 2, 1, 0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("AnimatedSprite:animation")
@@ -283,7 +291,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5 ),
+"times": PoolRealArray( 0, 0.125, 0.5, 0.75, 0.875 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -2.57298, 7.11354 ), Vector2( -1.94301, 9.00342 ), Vector2( -2.03302, 3.42377 ), Vector2( -2.70797, 4.09873 ), Vector2( -2.21301, 4.5937 ) ]
@@ -295,22 +303,27 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5 ),
+"times": PoolRealArray( 0, 0.125, 0.5, 0.75, 0.875 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ -125.5, -107.263, -146.843, -143.997, -126.07 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("AnimatedSprite:modulate")
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.375, 0.625 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0.380392, 0.380392, 1 ), Color( 1, 1, 1, 1 ) ]
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "instanceClone"
+}, {
+"args": [  ],
+"method": "instanceClone"
+} ]
 }
 
 [sub_resource type="Animation" id=20]
@@ -419,6 +432,38 @@ tracks/3/keys = {
 "values": [ -125.061, -111.606, -103.138, -111.742, -125.061, -111.606, -103.138, -111.742 ]
 }
 
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "hurt"
+length = 0.375
+step = 0.125
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.125, 0.375 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=29]
 resource_name = "Bobble Health Bar"
 length = 2.0
@@ -495,6 +540,7 @@ tracks/1/keys = {
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
+SPEED = 140
 WEAPON = ExtResource( 3 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
@@ -513,7 +559,7 @@ texture_over = ExtResource( 8 )
 texture_progress = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( 0, 9 )
 z_index = 10
 shape = SubResource( 15 )
 
@@ -534,12 +580,16 @@ flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 16 )
-anims/basicHurt = SubResource( 17 )
+anims/basicDash = SubResource( 30 )
 anims/basicIdle = SubResource( 18 )
 anims/basicWalk = SubResource( 19 )
-anims/weaponHurt = SubResource( 22 )
+anims/weaponDash = SubResource( 31 )
 anims/weaponIdle = SubResource( 20 )
 anims/weaponWalk = SubResource( 21 )
+
+[node name="StateAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 32 )
+anims/hurt = SubResource( 33 )
 
 [node name="UIAnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Bobble Health Bar" = SubResource( 29 )
@@ -555,7 +605,11 @@ flip_h = true
 region_enabled = true
 region_rect = Rect2( 304, 80, 16, 32 )
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="damage" from="Hitbox" to="." method="takeDamage"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="animationEnded"]
+[connection signal="animation_finished" from="StateAnimationPlayer" to="." method="animationFinished"]
+[connection signal="timeout" from="Timer" to="." method="dashCooldownEnd"]
 
 [editable path="Hitbox"]
