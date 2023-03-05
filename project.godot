@@ -109,6 +109,10 @@ dash={
 2d_physics/layer_3="enemy"
 2d_physics/layer_4="object"
 
+[mono]
+
+project/assembly_name="Just Another Roguelike"
+
 [physics]
 
 common/enable_pause_aware_picking=true
